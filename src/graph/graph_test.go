@@ -6,5 +6,6 @@ import (
 )
 
 func TestName(t *testing.T) {
-	fmt.Println("fire 11")
+	dg := NewDigraphFromFile("tinyDG.txt")
+	fmt.Println(dg)
 }
