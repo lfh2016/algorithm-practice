@@ -1,5 +1,9 @@
 package tree
 
+import (
+	"math/rand"
+)
+
 func (root *node) get(key int) (string, bool) {
 	if root == nil {
 		return "", false
@@ -77,4 +81,35 @@ func weave(first, second, prefix []*node, results *[][]*node) {
 	secondClone = append(secondClone[:0], secondClone[1:]...)
 	weave(first, secondClone, p, results)
 
+}
+
+func (root *node) RandomNode() *node {
+	if root == nil {
+		return nil
+	}
+	leftSize := root.left.size()
+	randIndex := rand.Intn(root.size())
+	if randIndex == leftSize {
+		return root
+	}
+	if randIndex < leftSize {
+		return root.left.ithNode(randIndex)
+	} else {
+		return root.right.ithNode(randIndex - leftSize - 1)
+	}
+}
+
+func (root *node) ithNode(index int) *node {
+	if root == nil {
+		return nil
+	}
+	leftSize := root.left.size()
+	if index == leftSize {
+		return root
+	}
+	if index < leftSize {
+		return root.left.ithNode(index)
+	} else {
+		return root.right.ithNode(index - (leftSize + 1))
+	}
 }
